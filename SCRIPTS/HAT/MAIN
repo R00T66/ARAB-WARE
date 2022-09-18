@@ -1,0 +1,16 @@
+local AssetId = (...)
+
+if AssetId == nil then
+   return false
+end
+
+local Asset = game:GetObjects("rbxassetid://" .. tostring(AssetId))[1]
+local Func = loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/HAT/FUNCTION"))()
+
+if game:GetService("Players").LocalPlayer.Character then 
+   if Asset:FindFirstChild("Handle") then Asset:FindFirstChild("Handle").CanCollide = false end
+   Func(game:GetService("Players").LocalPlayer.Character, Asset);
+   return true 
+else 
+   return false 
+end

@@ -10,7 +10,7 @@ if game:GetService("Players").LocalPlayer.Character then
          
          local Face = Head:FindFirstChild("face")
          
-         Face:Destroy()
+         Face.Texture = nil
          Head.Transparency = 1
       end
    end

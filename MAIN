@@ -1,3 +1,11 @@
+getgenv().Settings = {
+ ["HEADLESS"] = true,
+ ["KORBLOX"] = true,
+ ["HATS"] = { 
+ 
+ }
+}
+
 --// PRELOAD
 
 repeat wait() until game["IsLoaded"]
@@ -14,6 +22,8 @@ local Settings = getgenv().Settings
 local SETUP = loadstring(
    game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/DATA")
 )()
+
+
 
 --// UI SETUP 
 
@@ -54,9 +64,9 @@ local SETTINGS = WINDOW:MakeTab({
    PremiumOnly = false
 })
 
---// Connections
+--// Functions
 
-Client.CharacterAdded:Connect(function(CHARACTER) -- Customization
+local APPLYCUSTOMIZATION = function(CHARACTER)
     if not CHARACTER:FindFirstChild("DONE") then
        local DONE = Instance.new("Folder")
        DONE.Name = "DONE"
@@ -78,23 +88,20 @@ Client.CharacterAdded:Connect(function(CHARACTER) -- Customization
     end
     
     if Settings["HEADLESS"] then
-       if CHARACTER:FindFirstChild("DONE") then
-          Instance.new(
-           "StringValue",
-           CHARACTER:FindFirstChild("DONE")
-          ).Name = "HEADLESS"
-       end
        SETUP.Headless()
     end
     
     if Settings["KORBLOX"] then
-       if CHARACTER:FindFirstChild("DONE") then
-          Instance.new(
-           "StringValue",
-           CHARACTER:FindFirstChild("DONE")
-          ).Name = "KORBLOX"
-       end
        SETUP.Korblox()
     end
-    
+end
+
+--// Connections
+
+Client.CharacterAdded:Connect(function(CHARACTER) -- Customization
+    APPLYCUSTOMIZATION(CHARACTER)
 end)
+
+if Client.Character then
+    APPLYCUSTOMIZATION(Client.Character) -- Customization (2)
+end

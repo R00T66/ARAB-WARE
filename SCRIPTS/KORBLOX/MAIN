@@ -1,16 +1,12 @@
 if game:GetService("Players").LocalPlayer.Character then
     local Character = game:GetService("Players").LocalPlayer.Character
-    local DoneFolder = Character:FindFirstChild("DONE")
-       
-    if DoneFolder:FindFirstChild("KORBLOX") then
-       return
-    end
+    local Done = Character:FindFirstChild("DONE")
        
     local RightUpperLeg = Character:WaitForChild("RightUpperLeg", 15)
     local RightLowerLeg = Character:WaitForChild("RightLowerLeg", 15)
     local RightFoot = Character:WaitForChild("RightFoot", 15)
        
-    if RightUpperLeg == nil or RightLowerLeg == nil or RightFoot == nil then
+    if RightUpperLeg == nil or RightLowerLeg == nil or RightFoot == nil and not Done:FindFirstChild("KORBLOX") then
        return false
     end
        

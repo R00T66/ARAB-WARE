@@ -26,6 +26,16 @@ elseif Hat == "Clockwork Headphones" then
    return 1235488
 elseif Hat == "Clockwork Shades" then
    return 11748356
+elseif Hat == "Beautiful Hair" then
+   return 16630147
+elseif Hat == "Scene Hair" then
+   return 323476364
+elseif Hat == "Scene Hair Blue" then
+   return 76059443
+elseif Hat == "Messy Boy Hair" then
+   return 6823338112
+elseif Hat == "Messy Popular Boy" then
+   return 6594911228
 else
    return 1016143686
 end

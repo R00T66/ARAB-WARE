@@ -1,0 +1,31 @@
+local Hat = (...)
+
+if Hat == "Classic Fedora" then
+   return 1029025
+elseif Hat == "Valkyrie Helm" then
+   return 1365767
+elseif Hat == "Blackvalk" then
+   return 124730194
+elseif Hat == "Void Star" then
+   return 1125510
+elseif Hat == "Fiery Horns" then
+   return 215718515
+elseif Hat == "Toxic Horns" then
+   return 1744060292
+elseif Hat == "Frigid Horns" then
+   return 74891470
+elseif Hat == "Dominus Empyreus" then
+   return 21070012
+elseif Hat == "Dominus Astra" then
+   return 162067148
+elseif Hat == "Dominus Infernus" then
+   return 31101391
+elseif Hat == "Dominus Frigidus" then
+   return 48545806
+elseif Hat == "Clockwork Headphones" then
+   return 1235488
+elseif Hat == "Clockwork Shades" then
+   return 11748356
+else
+   return 1016143686
+end

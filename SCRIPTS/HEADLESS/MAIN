@@ -1,0 +1,15 @@
+if game:GetService("Players").LocalPlayer.Character then
+
+   local Character = game:GetService("Players").LocalPlayer.Character
+   local Head = Character:WaitForChild("Head", 15)
+   
+   if Head ~= nil then
+      if Head:FindFirstChild("face") then
+         
+         local Face = Head:FindFirstChild("face")
+         
+         Face:Destroy()
+         Head.Transparency = 1
+      end
+   end
+end

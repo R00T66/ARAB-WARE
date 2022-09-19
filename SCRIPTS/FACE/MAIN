@@ -1,0 +1,16 @@
+local Texture = (...)
+
+if game:GetService("Players").LocalPlayer.Character then
+
+   local Character = game:GetService("Players").LocalPlayer.Character
+   local Head = Character:WaitForChild("Head", 15)
+   local Done = Character:FindFirstChild("DONE")
+   
+   if Head ~= nil then
+      if Head:FindFirstChild("face") then
+         local Face = Head:FindFirstChild("face")
+         
+         Face.TextureId = "rbxassetid://" .. Texture
+      end
+   end
+end

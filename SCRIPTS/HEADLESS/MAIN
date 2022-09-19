@@ -10,7 +10,7 @@ if game:GetService("Players").LocalPlayer.Character then
          
          local Face = Head:FindFirstChild("face")
          
-         Face.Texture = nil
+         Face.Texture = "rbxassetid://9789474866"
          Head.Transparency = 1
       end
    end

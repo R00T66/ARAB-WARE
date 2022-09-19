@@ -6,6 +6,7 @@ if game:GetService("Players").LocalPlayer.Character then
    
    if Head ~= nil and not Done:FindFirstChild("HEADLESS") then
       if Head:FindFirstChild("face") then
+         Instance.new("StringValue", Done).Name = "HEADLESS"
          
          local Face = Head:FindFirstChild("face")
          

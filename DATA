@@ -1,10 +1,10 @@
 return {
  Korblox = function()
     return loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/KORBLOX/MAIN"))()
- end
+ end,
  Headless = function()
     return loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/HEADLESS/MAIN"))()
- end
+ end,
  Hat = function(HatID)
     return loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/HAT/MAIN"))(HatID)
  end

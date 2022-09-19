@@ -1,0 +1,27 @@
+local Face = (...)
+
+if Face == "Red Glowing Eyes" then
+   return 180660043
+elseif Face == "Green Glowing Eyes" then
+   return 398676450
+elseif Face == "Yellow Glowing Eyes" then
+   return 416846000
+elseif Face == "Tattletale" then
+   return 26343188
+elseif Face == "Yum!" then
+   return 26019070
+elseif Face == "Prankster" then
+   return 20052135
+elseif Face == "SSHF" then
+   return 494291269
+elseif Face == "Epic Face" then
+   return 42070576
+elseif Face == "Epic Vampire" then
+   return 181651981
+elseif Face == "Beast Mode (R)" then
+   return 128992838
+elseif Face == "Beast Mode (B)" then
+   return 209995252
+else
+   return 2225761296
+end

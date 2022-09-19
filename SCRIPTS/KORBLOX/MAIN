@@ -6,7 +6,7 @@ if game:GetService("Players").LocalPlayer.Character then
     local RightLowerLeg = Character:WaitForChild("RightLowerLeg", 15)
     local RightFoot = Character:WaitForChild("RightFoot", 15)
        
-    if RightUpperLeg == nil or RightLowerLeg == nil or RightFoot == nil and not Done:FindFirstChild("KORBLOX") then
+    if RightUpperLeg == nil or RightLowerLeg == nil or RightFoot == nil or Done:FindFirstChild("KORBLOX") then
        return false
     end
        
@@ -18,6 +18,8 @@ if game:GetService("Players").LocalPlayer.Character then
        
     RightFoot.MeshId = "rbxassetid://902942089"
     RightFoot.Transparency = 1     
-       
+    
+    Instance.new("StringValue", Done).Name = "KORBLOX"
+    
     return true
 end

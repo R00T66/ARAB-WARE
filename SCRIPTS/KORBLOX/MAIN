@@ -11,7 +11,7 @@ if game:GetService("Players").LocalPlayer.Character then
     end
        
     RightUpperLeg.MeshId = "rbxassetid://902942096"
-    RightUpperLeg.TextureId = "rbxassetid://902843398"
+    RightUpperLeg.TextureID = "rbxassetid://902843398"
        
     RightLowerLeg.MeshId = "rbxassetid://902942093"
     RightLowerLeg.Transparency = 1

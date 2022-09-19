@@ -1,8 +1,11 @@
-getgenv().Settings = {
- ["HEADLESS"] = true,
- ["KORBLOX"] = true,
- ["HATS"] = { 
+_G.Settings = {
+ ["CUSTOMIZATION"] = {
+    ["HEADLESS"] = false,
+    ["KORBLOX"] = false,
+    ["FACE"] = nil,
+    ["HATS"] = { 
  
+    }
  }
 }
 
@@ -15,15 +18,15 @@ repeat wait() until game:GetService("Players")["LocalPlayer"]["Character"]
 --// VARIABLES
 
 local Client = game:GetService("Players")["LocalPlayer"]
-local Settings = getgenv().Settings
+local CurrentSelectedHat = 1029025
+local CurrentSelectedFace = 180660043
+local Loaded = false
 
 --// STUFF
 
 local SETUP = loadstring(
    game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/DATA")
 )()
-
-
 
 --// UI SETUP 
 
@@ -64,16 +67,38 @@ local SETTINGS = WINDOW:MakeTab({
    PremiumOnly = false
 })
 
+--// Core Functions
+
+local Notification = function(Title, Content, Time)
+   if Loaded then
+      return ORION:MakeNotification({
+        Name = Title,
+        Content = Content,
+        Time = Time
+      })
+   end
+end
+
+local CSettings = function()
+   return _G.Settings["CUSTOMIZATION"]
+end
+
 --// Functions
 
+local Applying = false
 local APPLYCUSTOMIZATION = function(CHARACTER)
+    if Applying then return end
+    
+    Applying = true
+    
     if not CHARACTER:FindFirstChild("DONE") then
        local DONE = Instance.new("Folder")
        DONE.Name = "DONE"
        DONE.Parent = CHARACTER
     end
     
-    local Hats = Settings["HATS"]
+    local Hats = CSettings()["HATS"]
+    local Huma = CHARACTER:WaitForChild("Humanoid")
     
     if #Hats ~= 0 then
        for i, v in pairs(Hats) do
@@ -87,14 +112,207 @@ local APPLYCUSTOMIZATION = function(CHARACTER)
        end
     end
     
-    if Settings["HEADLESS"] then
+    if CSettings()["HEADLESS"] then
        SETUP.Headless()
     end
     
-    if Settings["KORBLOX"] then
+    if CSettings()["FACE"] ~= nil then
+       SETUP.Face(CSettings()["FACE"])
+    end
+    
+    if CSettings()["KORBLOX"] then
        SETUP.Korblox()
     end
+    
+    Applying = false
 end
+
+local GetHatID = function(HatName)
+   return loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/HAT/ID"))(HatName)
+end
+
+local GetFaceID = function(FaceName)
+   return loadstring(game:HttpGet("https://raw.githubusercontent.com/R00T66/ARAB-WARE/main/SCRIPTS/FACE/ID"))(FaceName)
+end
+
+--// CHAR TAB
+
+local BS = CHARACTER:AddSection({Name = "BODY"})
+
+BS:AddToggle({
+  Name = "HEADLESS",
+  Default = CSettings()["HEADLESS"],
+  Callback = function(Boolean)
+     CSettings()["HEADLESS"] = Boolean
+     Notification("CHARACTER", "HEADLESS SET TO " .. tostring(Boolean):upper(), 5)
+     if Client.Character then
+        APPLYCUSTOMIZATION(Client.Character)
+     end
+  end
+})
+
+BS:AddToggle({
+  Name = "KORBLOX",
+  Default = CSettings()["KORBLOX"],
+  Callback = function(Boolean)
+     CSettings()["KORBLOX"] = Boolean
+     Notification("CHARACTER", "KORBLOX SET TO " .. tostring(Boolean):upper(), 5)
+     if Client.Character then
+        APPLYCUSTOMIZATION(Client.Character)
+     end
+  end
+})
+
+local HS = CHARACTER:AddSection({Name = "HATS"})
+
+HS:AddDropdown({
+  Name = "HATS",
+  Default = "Classic Fedora",
+  Options = {
+   "Classic Fedora",
+   "Valkyrie Helm",
+   "Blackvalk",
+   "Void Star",
+   "Fiery Horns",
+   "Toxic Horns",
+   "Frigid Horns",
+   "Dominus Empyreus",
+   "Dominus Astra",
+   "Dominus Infernus",
+   "Dominus Frigidus",
+   "Clockwork Headphones",
+   "Clockwork Shades"
+  },
+  Callback = function(Value)
+     local HatID = GetHatID(Value)
+     
+     CurrentSelectedHat = HatID
+     
+     Notification("HAT SELECTOR", "HAT SET TO " .. tostring(Value), 5)
+  end
+})
+
+HS:AddDropdown({
+  Name = "HAIRS",
+  Default = "Beautiful Hair",
+  Options = {
+   "Beautiful Hair",
+   "Scene Hair",
+   "Scene Hair Blue",
+   "Messy Boy Hair",
+   "Messy Popular Boy"
+  },
+  Callback = function(Value)
+     local HairID = GetHatID(Value)
+     
+     CurrentSelectedHat = HairID
+     
+     Notification("HAT SELECTOR", "HAT SET TO " .. tostring(Value), 5)
+  end
+})
+
+HS:AddTextbox({
+  Name = "CUSTOM HAT",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Value)
+     if Value ~= "" and Value ~= " " and Value ~= nil and Value ~= "HAT ID" then
+        CurrentSelectedHat = Value
+        
+        Notification("HAT SELECTOR", "HAT SET TO " .. tostring(Value), 5)   
+     end
+  end
+})
+
+HS:AddButton({
+  Name = "ADD HAT",
+  Callback = function()
+     
+     local Added = false
+     
+     if not table.find(CSettings()["HATS"], CurrentSelectedHat) then table.insert(
+         CSettings()["HATS"], 
+         CurrentSelectedHat
+     ) Added = true end
+     
+     if Added then
+        Notification("CHARACTER", "HAT ADDED!", 5)       
+     end
+     if Client.Character then
+        APPLYCUSTOMIZATION(Client.Character)
+     end
+  end
+})
+
+HS:AddButton({
+  Name = "CLEAR HATS",
+  Callback = function(Value)
+     CSettings()["HATS"] = { }
+     Notification("CHARACTER", "HATS REMOVED ON NEXT RESPAWN!", 5)
+  end
+})
+
+local FS = CHARACTER:AddSection({Name = "FACES"})
+
+FS:AddDropdown({
+  Name = "FACES",
+  Default = "Epic Face",
+  Options = {
+   "Red Glowing Eyes",
+   "Green Glowing Eyes",
+   "Yellow Glowing Eyes",
+   "Tattletale",
+   "Yum!",
+   "Prankster",
+   "SSHF",
+   "Epic Face",
+   "Epic Vampire",
+   "Beast Mode (R)",
+   "Beast Mode (B)"
+  },
+  Callback = function(Value)
+     local FaceID = GetFaceID(Value)
+     
+     CurrentSelectedFace = FaceID
+     
+     Notification("FACE SELECTOR", "FACE SET TO " .. tostring(Value), 5)
+  end
+})
+
+FS:AddTextbox({
+  Name = "CUSTOM FACE",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Value)
+     if Value ~= "" and Value ~= " " and Value ~= nil and Value ~= "HAT ID" then
+        CurrentSelectedHat = Value
+        
+        Notification("FACE SELECTOR", "FACE SET TO " .. tostring(Value), 5)   
+     end
+  end
+})
+
+FS:AddButton({
+  Name = "ADD FACE",
+  Callback = function()
+     
+     CSettings()["FACE"] = CurrentSelectedFace
+     
+     Notification("CHARACTER", "FACE ADDED!", 5)
+     
+     if Client.Character then
+        APPLYCUSTOMIZATION(Client.Character)
+     end
+  end
+})
+
+FS:AddButton({
+  Name = "CLEAR FACE",
+  Callback = function(Value)
+     CSettings()["FACE"] = nil
+     Notification("CHARACTER", "FACE REMOVED ON NEXT RESPAWN!", 5)
+  end
+})
 
 --// Connections
 
@@ -105,3 +323,7 @@ end)
 if Client.Character then
     APPLYCUSTOMIZATION(Client.Character) -- Customization (2)
 end
+
+--// FIN
+
+Loaded = true

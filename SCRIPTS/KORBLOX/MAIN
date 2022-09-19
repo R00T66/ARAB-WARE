@@ -1,0 +1,28 @@
+if game:GetService("Players").LocalPlayer.Character then
+   local CORO = coroutine.create(function()
+       local Character = game:GetService("Players").LocalPlayer.Character
+       
+       local RightUpperLeg = Character:WaitForChild("RightUpperLeg", 15)
+       local RightLowerLeg = Character:WaitForChild("RightLowerLeg", 15)
+       local RightFoot = Character:WaitForChild("RightFoot", 15)
+       
+       if RightUpperLeg == nil or RightLowerLeg == nil or RightFoot == nil then
+          return false
+       end
+       
+       RightUpperLeg.MeshId = "rbxassetid://902942096"
+       RightUpperLeg.TextureId = "rbxassetid://902843398"
+       
+       RightLowerLeg.MeshId = "rbxassetid://902942093"
+       RightLowerLeg.Transparency = 1
+       
+       RightFoot.MeshId = "rbxassetid://902942089"
+       RightFoot.Transparency = 1     
+       
+       return true
+   end)
+   
+   local Result = coroutine.resume(CORO)
+   
+   return Result
+end
